@@ -1,0 +1,5 @@
+- name: frontend application
+  hosts: all
+  become: true
+  roles:
+    "{{ component }}"

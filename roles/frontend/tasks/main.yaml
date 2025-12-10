@@ -1,0 +1,38 @@
+- name: Install nginx package
+  ansible.builtin.dnf:
+    name: '@nginx:1.24'
+    state: present
+
+#  copy files to remote locations
+- name: Copy nginx.conf file
+  ansible.builtin.copy:
+    src: nginx.conf
+    dest: /etc/nginx/nginx.conf
+
+#   remove application directory
+- name: Remove application directory
+  ansible.builtin.file:
+    path: /usr/share/nginx/html/
+    state: absent
+
+- name: make a directory
+  ansible.builtin.file:
+    path: /usr/share/nginx/html
+    state: directory
+
+- name: Download frontend application
+  ansible.builtin.get_url:
+    url: https://roboshop-artifacts.s3.amazonaws.com/frontend-v3.zip
+    dest: /tmp/frontend.zip
+
+- name: Extract frontend application
+  ansible.builtin.unarchive:
+    src: /tmp/frontend.zip
+    dest: /usr/share/nginx/html
+
+- name: start nginx service
+  ansible.builtin.systemd_service:
+    name: nginx
+    state: started
+    daemon-reload: true
+    enabled: true
