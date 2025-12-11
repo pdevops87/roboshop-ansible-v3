@@ -1,9 +1,5 @@
 - name: copy service local to remote file
   ansible.builtin.import_tasks:
-    file: service.yaml
-
-- name: copy service local to remote file
-  ansible.builtin.import_tasks:
     file: mongo.yaml
 
 - name: import backend script

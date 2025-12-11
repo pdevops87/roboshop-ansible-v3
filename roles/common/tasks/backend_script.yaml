@@ -1,6 +1,6 @@
 - name: start catalogue service
   ansible.builtin.systemd_service:
-    name: catalogue
+    name: "{{component}}"
     daemon-reload: true
     state: started
     enabled: true

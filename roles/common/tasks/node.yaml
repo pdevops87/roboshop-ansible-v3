@@ -9,28 +9,28 @@
 
 - name: Remove app directory
   ansible.builtin.file:
-    path: /app
+    path: "{{ app_location }}"
     state: absent
 
 - name: make a directory
   ansible.builtin.file:
-    path: /app
+    path: "{{ app_location }}"
     state: directory
 
-- name: Download catalogue
+- name: Download component
   ansible.builtin.get_url:
-    url: https://roboshop-artifacts.s3.amazonaws.com/catalogue-v3.zip
-    dest: /tmp/catalogue.zip
+    url: https://roboshop-artifacts.s3.amazonaws.com/{{component}}-v3.zip
+    dest: /tmp/{{component}}.zip
 
-- name: Extract catalogue
+- name: Extract component
   ansible.builtin.unarchive:
-    src: /tmp/catalogue.zip
-    dest: /app
+    src: /tmp/{{component}}.zip
+    dest: "{{ app_location }}"
     remote_src: yes
 
 - name: Install npm
   community.general.npm:
     name: npm
-    path: /app
+    path: "{{ app_location }}"
 
 
