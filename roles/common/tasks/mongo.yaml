@@ -3,7 +3,6 @@
     src: mongo.repo
     dest: /etc/yum.repos.d/mongo.repo
 
-
 - name: Install mongodb-mongosh
   ansible.builtin.dnf:
     name: 'mongodb-mongosh'

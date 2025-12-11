@@ -28,9 +28,6 @@
     dest: "{{ app_location }}"
     remote_src: yes
 
-- name: Install npm
-  community.general.npm:
-    name: npm
-    path: "{{ app_location }}"
+
 
 
