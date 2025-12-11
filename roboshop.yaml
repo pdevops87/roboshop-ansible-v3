@@ -1,4 +1,4 @@
-- name: frontend application
+- name: roboshop application
   hosts: localhost
   connection: local
   become: true
