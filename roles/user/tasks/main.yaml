@@ -1,4 +1,4 @@
-- name: copy user user local to remote
+- name: copy user local to remote
   ansible.builtin.copy:
     src: user.service
     dest: /etc/systemd/system/user.service
