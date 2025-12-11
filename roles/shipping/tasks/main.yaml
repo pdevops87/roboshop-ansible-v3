@@ -1,0 +1,65 @@
+- name: copy shipping service local to remote
+  ansible.builtin.copy:
+    src: shipping.service
+    dest: /etc/systemd/system/shipping.service
+
+- name: Install maven
+  ansible.builtin.dnf:
+    name: maven
+    state: present
+
+- name: Create a user
+  ansible.builtin.user:
+    name: roboshop
+
+- name: Remove app directory
+  ansible.builtin.file:
+    path: /app
+    state: absent
+
+- name: make a directory
+  ansible.builtin.file:
+    path: /app
+    state: directory
+
+- name: Download shipping
+  ansible.builtin.get_url:
+    url: https://roboshop-artifacts.s3.amazonaws.com/shipping-v3.zip
+    dest: /tmp/shipping.zip
+
+- name: Extract shipping
+  ansible.builtin.unarchive:
+    src: /tmp/shipping.zip
+    dest: /app
+    remote_src: yes
+
+- name: mvn clean package
+  ansible.builtin.shell: mvn clean package
+  args:
+    chdir: /app
+
+- name: move
+  ansible.builtin.shell: mv target/shipping-1.0.jar shipping.jar
+  args:
+    chdir: /app
+
+- name: install mysql
+  ansible.builtin.dnf:
+    name: mysql
+    state: present
+
+- name: Load schema
+  ansible.builtin.shell: mysql -h mysql-dev.pdevops78.online  -uroot -pRoboShop@1 < /app/db/schema.sql
+
+- name: Load user schema
+  ansible.builtin.shell: mysql -h mysql-dev.pdevops78.online  -uroot -pRoboShop@1 < /app/db/app-user.sql
+
+- name: Load master data schema
+  ansible.builtin.shell: mysql -h mysql-dev.pdevops78.online  -uroot -pRoboShop@1 < /app/db/master-data.sql
+
+- name: start shipping service
+  ansible.builtin.systemd_service:
+    name: shipping
+    daemon-reload: true
+    enabled: true
+    state: started

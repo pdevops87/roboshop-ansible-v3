@@ -1,0 +1,49 @@
+- name: copy payment service local to remote
+  ansible.builtin.copy:
+    src: payment.service
+    dest: /etc/systemd/system/payment.service
+
+- name: Install python3 package
+  ansible.builtin.dnf:
+    name:
+      - python3
+      - gcc
+      - python3-devel
+    state: present
+
+- name: Create a user
+  ansible.builtin.user:
+    name: roboshop
+
+- name: Remove app directory
+  ansible.builtin.file:
+    path: /app
+    state: absent
+
+- name: make a directory
+  ansible.builtin.file:
+    path: /app
+    state: directory
+
+- name: Download payment
+  ansible.builtin.get_url:
+    url: https://roboshop-artifacts.s3.amazonaws.com/payment-v3.zip
+    dest: /tmp/payment.zip
+
+- name: Extract payment
+  ansible.builtin.unarchive:
+    src: /tmp/payment.zip
+    dest: /app
+    remote_src: yes
+
+- name: Install requirements
+  ansible.builtin.pip:
+    requirements: /app/requirements.txt
+    executable: pip3
+
+- name: start payment service
+  ansible.builtin.systemd_service:
+    name: payment
+    state: started
+    daemon-reload: true
+    enabled: true

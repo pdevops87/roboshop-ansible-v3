@@ -1,0 +1,46 @@
+- name: copy user user local to remote
+  ansible.builtin.copy:
+    src: user.service
+    dest: /etc/systemd/system/user.service
+
+- name: Install nodejs package
+  ansible.builtin.dnf:
+    name: '@nodejs:20'
+    state: present
+
+- name: Create a user
+  ansible.builtin.user:
+    name: roboshop
+
+- name: Remove app directory
+  ansible.builtin.file:
+    path: /app
+    state: absent
+
+- name: make a directory
+  ansible.builtin.file:
+    path: /app
+    state: directory
+
+- name: Download user
+  ansible.builtin.get_url:
+    url: https://roboshop-artifacts.s3.amazonaws.com/user-v3.zip
+    dest: /tmp/user.zip
+
+- name: Extract user
+  ansible.builtin.unarchive:
+    src: /tmp/user.zip
+    dest: /app
+    remote_src: yes
+
+- name: Install npm
+  community.general.npm:
+    name: npm
+    path: /app
+
+- name: start user service
+  ansible.builtin.systemd_service:
+    name: user
+    state: started
+    enabled: true
+    daemon_reload: true
