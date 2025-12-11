@@ -3,6 +3,19 @@
     src: catalogue.service
     dest: /etc/systemd/system/catalogue.service
 
-- name: import role
-  ansible.builtin.import_role:
+- name: import node
+  ansible.builtin.include_role:
     name: common
+    tasks_from: node.yaml
+
+- name: import node
+  ansible.builtin.include_role:
+    name: common
+    tasks_from: mongo.yaml
+
+- name: import backend script
+  ansible.builtin.include_role:
+    name: common
+    tasks_from: backend_script.yaml
+
+
