@@ -6,12 +6,6 @@
   ansible.builtin.import_tasks:
     file: mongo.yaml
 
-
-- name: import node
-  ansible.builtin.import_tasks:
-    file: node.yaml
-
-
 - name: import backend script
   ansible.builtin.import_tasks:
     file: backend_script.yaml
