@@ -8,6 +8,7 @@
     name: common
     tasks_from: "{{ role_items }}"
   loop:
+    - node.yaml
     - npm.yaml
     - mongo.yaml
     - backend_script.yaml

@@ -2,5 +2,5 @@
   ansible.builtin.systemd_service:
     name: "{{component}}"
     daemon-reload: true
-    state: started
+    state: restarted
     enabled: true

@@ -3,30 +3,13 @@
     src: shipping.service
     dest: /etc/systemd/system/shipping.service
 
-#- name: import node
-#  ansible.builtin.include_role:
-#    name: common
-#    tasks_from: node.yaml
-#
-#- name: import node
-#  ansible.builtin.include_role:
-#    name: common
-#    tasks_from: mysql.yaml
-#
-#- name: start shipping service
-#  ansible.builtin.include_role:
-#    name: common
-#    tasks_from: backend_script.yaml
-
-
-
 - name: Use role in loop
   ansible.builtin.include_role:
     name: common
     tasks_from: "{{ role_items }}"
   loop:
     - node.yaml
-    - mysql.yaml
+    - main.yaml
     - backend_script.yaml
   loop_control:
     loop_var: role_items
