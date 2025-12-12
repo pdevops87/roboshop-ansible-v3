@@ -7,3 +7,8 @@
   ansible.builtin.include_role:
     name: common
     tasks_from: node.yaml
+
+- name: import node
+  ansible.builtin.include_role:
+    name: common
+    tasks_from: npm.yaml
