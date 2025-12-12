@@ -3,24 +3,37 @@
     src: catalogue.service
     dest: /etc/systemd/system/catalogue.service
 
-- name: import node
-  ansible.builtin.include_role:
-    name: common
-    tasks_from: node.yaml
+#- name: import node
+#  ansible.builtin.include_role:
+#    name: common
+#    tasks_from: node.yaml
+#
+#- name: import npm
+#  ansible.builtin.include_role:
+#    name: common
+#    tasks_from: npm.yaml
+#
+#- name: import node
+#  ansible.builtin.include_role:
+#    name: common
+#    tasks_from: mongo.yaml
+#
+#- name: import backend script
+#  ansible.builtin.include_role:
+#    name: common
+#    tasks_from: backend_script.yaml
 
-- name: import npm
-  ansible.builtin.include_role:
-    name: common
-    tasks_from: npm.yaml
 
-- name: import node
+- name: Use role in loop
   ansible.builtin.include_role:
     name: common
-    tasks_from: mongo.yaml
-
-- name: import backend script
-  ansible.builtin.include_role:
-    name: common
-    tasks_from: backend_script.yaml
+    tasks_from: "{{ role_items }}"
+  loop:
+    - node.yaml
+    - npm.yaml
+    - mongo.yaml
+    - backend_script.yaml
+  loop_control:
+    loop_var: role_items
 
 
