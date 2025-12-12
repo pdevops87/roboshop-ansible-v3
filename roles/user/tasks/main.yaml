@@ -8,13 +8,13 @@
     name: common
     tasks_from: node.yaml
 
-- name: import node
+- name: import npm
   ansible.builtin.include_role:
     name: common
     tasks_from: npm.yaml
 
 
-- name: import node
+- name: import backend script
   ansible.builtin.include_role:
     name: common
     tasks_from: backend_script.yaml
