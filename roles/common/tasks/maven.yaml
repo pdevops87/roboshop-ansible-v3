@@ -8,7 +8,7 @@
   args:
     chdir: "{{ app_location }}"
 
-- name: move
+- name: move target location to app location
   ansible.builtin.shell: mv target/shipping-1.0.jar shipping.jar
   args:
     chdir: "{{ app_location }}"
