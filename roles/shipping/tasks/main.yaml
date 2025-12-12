@@ -3,24 +3,30 @@
     src: shipping.service
     dest: /etc/systemd/system/shipping.service
 
-- name: import node
+#- name: import node
+#  ansible.builtin.include_role:
+#    name: common
+#    tasks_from: node.yaml
+#
+#- name: import node
+#  ansible.builtin.include_role:
+#    name: common
+#    tasks_from: mysql.yaml
+#
+#- name: start shipping service
+#  ansible.builtin.include_role:
+#    name: common
+#    tasks_from: backend_script.yaml
+
+
+
+- name: Use role in loop
   ansible.builtin.include_role:
     name: common
-    tasks_from: node.yaml
-
-- name: install mysql
-  ansible.builtin.dnf:
-    name: mysql
-    state: present
-
-- name: Load schema
-  ansible.builtin.shell: mysql -h mysql-dev.pdevops78.online  -uroot -pRoboShop@1 < /app/db/{{ item }}
+    tasks_from: "{{ role_items }}"
   loop:
-    - schema.sql
-    - app-user.sql
-    - master-data.sql
-
-- name: start shipping service
-  ansible.builtin.include_role:
-    name: common
-    tasks_from: backend_script.yaml
+    - node.yaml
+    - mysql.yaml
+    - backend_script.yaml
+  loop_control:
+    loop_var: role_items
