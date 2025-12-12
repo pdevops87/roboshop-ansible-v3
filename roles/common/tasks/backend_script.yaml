@@ -1,4 +1,4 @@
-- name: start catalogue service
+- name: start  service
   ansible.builtin.systemd_service:
     name: "{{component}}"
     daemon-reload: true
