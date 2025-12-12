@@ -1,5 +1,5 @@
 component=$1
-if [ -z -ne $1 ]; then
+if [ -z $1 ]; then
    echo please provide input
    exit 1
 fi
