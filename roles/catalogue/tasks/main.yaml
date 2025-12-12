@@ -1,4 +1,4 @@
-- name: copy user local to remote
+- name: copy service local to remote
   ansible.builtin.copy:
     src: catalogue.service
     dest: /etc/systemd/system/catalogue.service
@@ -8,7 +8,6 @@
     name: common
     tasks_from: "{{ role_items }}"
   loop:
-    - node.yaml
     - npm.yaml
     - mongo.yaml
     - backend_script.yaml

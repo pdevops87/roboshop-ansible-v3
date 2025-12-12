@@ -8,3 +8,6 @@
 
 
 
+- name: install nodejs
+  ansible.builtin.include_tasks:
+    file: node.yaml
