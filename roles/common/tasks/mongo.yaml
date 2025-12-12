@@ -13,4 +13,4 @@
     file: node.yaml
 
 - name: Load schema
-  ansible.builtin.shell: mongosh --host mongodb-dev.pdevops78.online </app/db/master-data.js
+  ansible.builtin.shell: mongosh --host 172.31.25.212 </app/db/master-data.js
