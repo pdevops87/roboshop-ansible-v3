@@ -11,10 +11,9 @@
       - python3-devel
     state: present
 
-- name: import node
+- name: import common node
   ansible.builtin.include_role:
     name: common
-    tasks_from: node.yaml
 
 - name: Install requirements
   ansible.builtin.pip:
