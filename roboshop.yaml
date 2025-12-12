@@ -1,6 +1,5 @@
 - name: roboshop application
-  hosts: localhost
-  connection: local
+  hosts: all
   become: true
   roles:
     - "{{ component }}"
