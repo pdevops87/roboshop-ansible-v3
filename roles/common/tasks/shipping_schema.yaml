@@ -1,0 +1,8 @@
+- name: Load schema
+  ansible.builtin.shell: mysql -h mysql-dev.pdevops78.online  -uroot -pRoboShop@1 < /app/db/schema.sql
+
+- name: Load user schema
+  ansible.builtin.shell: mysql -h mysql-dev.pdevops78.online  -uroot -pRoboShop@1 < /app/db/app-user.sql
+
+- name: Load master data schema
+  ansible.builtin.shell: mysql -h mysql-dev.pdevops78.online  -uroot -pRoboShop@1 < /app/db/master-data.sql

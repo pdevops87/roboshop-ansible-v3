@@ -3,13 +3,21 @@
     src: shipping.service
     dest: /etc/systemd/system/shipping.service
 
+
+- name: install mysql
+  ansible.builtin.dnf:
+    name: mysql
+    state: present
+
 - name: Use role in loop
   ansible.builtin.include_role:
     name: common
     tasks_from: "{{ role_items }}"
   loop:
     - node.yaml
-    - main.yaml
+    - maven.yaml
+    - shipping_schema.yaml
     - backend_script.yaml
   loop_control:
     loop_var: role_items
+
