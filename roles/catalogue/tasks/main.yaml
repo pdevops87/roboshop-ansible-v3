@@ -13,7 +13,6 @@
     name: common
     tasks_from: npm.yaml
 
-
 - name: import node
   ansible.builtin.import_role:
     name: common

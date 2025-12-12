@@ -1,6 +1,6 @@
 - name: copy user local to remote
   ansible.builtin.copy:
-    src: {{component}}.service
+    src: "{{component}}".service
     dest: /etc/systemd/system/{{component}}.service
 
 - name: import node
