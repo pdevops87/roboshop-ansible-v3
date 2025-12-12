@@ -3,6 +3,11 @@
     src: catalogue.service
     dest: /etc/systemd/system/catalogue.service
 
+- name: import common code
+  ansible.builtin.include_role:
+    name: common
+
+
 - name: Use role in loop
   ansible.builtin.include_role:
     name: common
