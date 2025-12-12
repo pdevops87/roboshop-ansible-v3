@@ -3,13 +3,28 @@
     src: cart.service
     dest: /etc/systemd/system/cart.service
 
-- name: Use role in loop
+- name: import node
   ansible.builtin.include_role:
     name: common
-    tasks_from: "{{ role_items }}"
-  loop:
-    - node.yaml
-    - npm.yaml
-    - backend_script.yaml
-  loop_control:
-    loop_var: role_items
+    tasks_from: node.yaml
+
+- name: import npm
+  ansible.builtin.include_role:
+    name: common
+    tasks_from: npm.yaml
+
+- name: import backend
+  ansible.builtin.include_role:
+    name: common
+    tasks_from: backend_script.yaml
+
+#- name: Use role in loop
+#  ansible.builtin.include_role:
+#    name: common
+#    tasks_from: "{{ role_items }}"
+#  loop:
+#    - node.yaml
+#    - npm.yaml
+#    - backend_script.yaml
+#  loop_control:
+#    loop_var: role_items
