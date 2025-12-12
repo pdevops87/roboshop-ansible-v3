@@ -21,7 +21,7 @@
     requirements: /app/requirements.txt
     executable: pip3
 
-- name: import node
+- name: import backend script
   ansible.builtin.include_role:
     name: common
     tasks_from: backend_script.yaml
