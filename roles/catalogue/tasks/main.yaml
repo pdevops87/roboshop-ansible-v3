@@ -8,10 +8,10 @@
     name: common
     tasks_from: node.yaml
 
-#- name: import npm
-#  ansible.builtin.include_role:
-#    name: common
-#    tasks_from: npm.yaml
+- name: import npm
+  ansible.builtin.import_role:
+    name: common
+    tasks_from: npm.yaml
 #
 #
 #- name: Use role in loop
