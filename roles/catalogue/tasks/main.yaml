@@ -6,7 +6,7 @@
 - name: import common code
   ansible.builtin.include_role:
     name: common
-
+    tasks_from: node.yaml
 
 - name: Use role in loop
   ansible.builtin.include_role:
